@@ -7,6 +7,7 @@ import { hasEntries, hasItems, sleep } from "@/utils"
 import compose from "@/services/compose";
 import downloadMarkdown from "@/services/download";
 import { FileDown, Loader, Check } from 'lucide-preact';
+import warnForNutrition100g from "@/services/warnForNutrition100g";
 
 GM_addStyle(css);
 
@@ -27,6 +28,7 @@ export default function () {
 
         setScrapeState("scrapping")
 
+        warnForNutrition100g()
         const scraped = scrape()
 
         if (!hasEntries(scraped.nutrition)) {

@@ -8,19 +8,9 @@ import scrapeUtensils from "@/scrape/utensils"
 import scrapePdfUrl from "@/scrape/pdfUrl"
 import scrapeName from "@/scrape/name"
 import scrapeHeadline from "@/scrape/headline"
-import { getSelector } from "@/data/selectors"
 import { type Scrape } from "@/types/scrape"
 
-export default function(): Scrape {
-
-    // maybe this should be somewhere else
-  const selector = getSelector("Nutrition per 100g button")
-    const nutrition100gActive = document.querySelector(selector)
-    if (!nutrition100gActive) {
-        // to do: use a nicer alternative to alert()
-        alert("To get the nutrition facts per 100g, please select the button 'Por 100 g'.")
-    }
-
+export default function (): Scrape {
     return {
         url: location.href,
         name: scrapeName(),
