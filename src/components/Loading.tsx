@@ -1,6 +1,7 @@
 import Button from "@/components/ui/Button"
 import { selectorsStatus } from "@/stores/selectorsStatus"
 import { look } from "@/services/observeReadiness"
+import { Repeat } from 'lucide-preact';
 import css from "./Loading.css";
 
 GM_addStyle(css);
@@ -9,7 +10,7 @@ export default function () {
     // To do: make it nicer
     return (
         <div class="hellofresh-md-loading">
-            <div>Loading</div>
+            <div>Loading...</div>
             {selectorsStatus.value.length > 0 &&
                 <>
                     <ul class="selectors-status">
@@ -21,7 +22,10 @@ export default function () {
                                 </li>
                             ))}
                     </ul>
-                    <Button variant="secondary" onClick={() => look()}>Check again</Button>
+
+                    <Button variant="secondary" onClick={() => look()}>
+                        <Repeat />Check again
+                    </Button>
                 </>
             }
         </div>
