@@ -13,6 +13,6 @@
 
 .selectors-status {
     font-size: .9rem;
-    padding-block: 1lh;
+    margin-block: 1lh;
     color: gray;
 }

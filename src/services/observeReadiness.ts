@@ -9,47 +9,53 @@ export default function () {
 
     const observer = new MutationObserver(() => {
         clearTimeout(timeout)
-        timeout = setTimeout(look, DEBOUNCE_MS)
-    })
-
-    function look() {
-        let foundSomething = false
-
-        const updated = selectorsStatus.value.map(status => {
-            if (status.found) {
-                return status
-            }
-
-            const selectorString = getSelector(status.name)
-            const didFind = document.querySelector(selectorString)
-            if (!didFind) {
-                return status
-            }
-
-            foundSomething = true
-            return {
-                ...status,
-                found: true
-            }
-        })
-
-        if (foundSomething) {
-            selectorsStatus.value = updated
-        }
-
-        if (updated.every(status => status.found)) {
+        timeout = setTimeout(() => look(() => {
             clearTimeout(timeout)
             observer.disconnect()
-            status.value = {
-                state: "ready"
-            }
-        }
-    }
+        }), DEBOUNCE_MS)
+    })
 
     observer.observe(document.body, {
         childList: true,
         subtree: true
     })
 
-    look()
+    look(() => {
+        clearTimeout(timeout)
+        observer.disconnect()
+    })
+}
+
+export function look(exit: () => void = () => { }) {
+    console.log("looking")
+    let foundSomething = false
+
+    const updated = selectorsStatus.value.map(status => {
+        if (status.found) {
+            return status
+        }
+
+        const selectorString = getSelector(status.name)
+        const didFind = document.querySelector(selectorString)
+        if (!didFind) {
+            return status
+        }
+
+        foundSomething = true
+        return {
+            ...status,
+            found: true
+        }
+    })
+
+    if (foundSomething) {
+        selectorsStatus.value = updated
+    }
+
+    if (updated.every(status => status.found)) {
+        exit()
+        status.value = {
+            state: "ready"
+        }
+    }
 }
