@@ -29,7 +29,7 @@ export default {
         }
     ],
     plugins: [
-        resolve(),
+        resolve({ browser: true }),
         commonjs(),
         typescript({ tsconfig: './tsconfig.json' }),
         alias({
