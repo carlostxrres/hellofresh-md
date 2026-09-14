@@ -27,6 +27,7 @@
   "dependencies": {
     "@preact/signals": "^2.11.2",
     "file-saver": "^2.0.5",
+    "lucide-preact": "^1.46.0",
     "preact": "^10.26.7",
     "turndown": "^7.2.4"
   }
