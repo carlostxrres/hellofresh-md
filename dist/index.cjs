@@ -197,7 +197,6 @@ function observeReadiness() {
 }
 function look(exit = () => {
 }) {
-  console.log("looking");
   let foundSomething = false;
   const updated = selectorsStatus.value.map((status2) => {
     if (status2.found) {
@@ -485,12 +484,12 @@ function createLucideIcon(iconDataOrName, iconNode, aliases = []) {
  */
 
 
-const iconData$4 = {
+const iconData$3 = {
   name: "check",
   size: 24,
   node: [["path", { d: "M20 6 9 17l-5-5", key: "1gmf2c" }]]
 };
-const Check = createLucideIcon(iconData$4);
+const Check = createLucideIcon(iconData$3);
 
 /**
  * @license lucide-preact v1.46.0 - ISC
@@ -500,7 +499,7 @@ const Check = createLucideIcon(iconData$4);
  */
 
 
-const iconData$3 = {
+const iconData$2 = {
   name: "file-down",
   size: 24,
   node: [
@@ -516,7 +515,7 @@ const iconData$3 = {
     ["path", { d: "m9 15 3 3 3-3", key: "1npd3o" }]
   ]
 };
-const FileDown = createLucideIcon(iconData$3);
+const FileDown = createLucideIcon(iconData$2);
 
 /**
  * @license lucide-preact v1.46.0 - ISC
@@ -526,7 +525,7 @@ const FileDown = createLucideIcon(iconData$3);
  */
 
 
-const iconData$2 = {
+const iconData$1 = {
   name: "loader",
   size: 24,
   node: [
@@ -540,27 +539,7 @@ const iconData$2 = {
     ["path", { d: "m4.9 4.9 2.9 2.9", key: "giyufr" }]
   ]
 };
-const Loader = createLucideIcon(iconData$2);
-
-/**
- * @license lucide-preact v1.46.0 - ISC
- *
- * This source code is licensed under the ISC license.
- * See the LICENSE file in the root directory of this source tree.
- */
-
-
-const iconData$1 = {
-  name: "repeat",
-  size: 24,
-  node: [
-    ["path", { d: "m17 2 4 4-4 4", key: "nntrym" }],
-    ["path", { d: "M3 11v-1a4 4 0 0 1 4-4h14", key: "84bu3i" }],
-    ["path", { d: "m7 22-4-4 4-4", key: "1wqhfi" }],
-    ["path", { d: "M21 13v1a4 4 0 0 1-4 4H3", key: "1rx37r" }]
-  ]
-};
-const Repeat = createLucideIcon(iconData$1);
+const Loader = createLucideIcon(iconData$1);
 
 /**
  * @license lucide-preact v1.46.0 - ISC
@@ -571,36 +550,30 @@ const Repeat = createLucideIcon(iconData$1);
 
 
 const iconData = {
-  name: "triangle-alert",
+  name: "repeat",
   size: 24,
   node: [
-    [
-      "path",
-      {
-        d: "m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3",
-        key: "wmoenq"
-      }
-    ],
-    ["path", { d: "M12 9v4", key: "juzpu7" }],
-    ["path", { d: "M12 17h.01", key: "p32p05" }]
-  ],
-  aliases: ["alert-triangle"]
+    ["path", { d: "m17 2 4 4-4 4", key: "nntrym" }],
+    ["path", { d: "M3 11v-1a4 4 0 0 1 4-4h14", key: "84bu3i" }],
+    ["path", { d: "m7 22-4-4 4-4", key: "1wqhfi" }],
+    ["path", { d: "M21 13v1a4 4 0 0 1-4 4H3", key: "1rx37r" }]
+  ]
 };
-const TriangleAlert = createLucideIcon(iconData);
+const Repeat = createLucideIcon(iconData);
 
 const css$3 = ".selectors-status{padding:0;margin:0;}.selectors-status li{list-style:none;}.selectors-status{font-size:.9rem;margin-block:1lh;color:gray;}";
 
 GM_addStyle(css$3);
 function Loading() {
-  return u$2("div", { class: "hellofresh-md-loading", children: [u$2("div", { children: "Loading..." }), selectorsStatus.value.length > 0 && u$2(S$1, { children: [u$2("ul", { class: "selectors-status", children: selectorsStatus.value.filter((selectorStatus) => !selectorStatus.found).map((selectorStatus) => u$2("li", { children: [u$2(TriangleAlert, {}), u$2("span", { children: [selectorStatus.name, ": ", selectorStatus.found ? "found" : "not found"] })] }, selectorStatus.name)) }), u$2(Button, { variant: "secondary", onClick: () => look(), children: [u$2(Repeat, {}), "Check again"] })] })] });
+  return u$2("div", { class: "hellofresh-md-loading", children: [u$2("div", { children: "Loading..." }), selectorsStatus.value.length > 0 && u$2(S$1, { children: [u$2("ul", { class: "selectors-status", children: selectorsStatus.value.filter((selectorStatus) => !selectorStatus.found).map((selectorStatus) => u$2("li", { children: [selectorStatus.name, ": ", selectorStatus.found ? "found" : "not found"] }, selectorStatus.name)) }), u$2(Button, { variant: "secondary", onClick: () => look(), children: [u$2(Repeat, {}), "Check again"] })] })] });
 }
 
 function Error$1() {
-  return u$2("div", { class: "hellofresh-md-error", children: [u$2("div", { children: "Error" }), u$2("div", { children: status.value.message || "Error occurred" })] });
+  return u$2("div", { children: [u$2("div", { children: "Error" }), u$2("div", { children: status.value.message || "Error occurred" })] });
 }
 
 function Ready() {
-  return u$2("div", { class: "hellofresh-md-ready", children: "Ready to scrape" });
+  return u$2("div", { children: "Ready to scrape" });
 }
 
 function cleanText(string) {
@@ -834,11 +807,6 @@ function scrapeHeadline() {
 }
 
 function scrape() {
-  const selector = getSelector("Nutrition per 100g button");
-  const nutrition100gActive = document.querySelector(selector);
-  if (!nutrition100gActive) {
-    alert("To get the nutrition facts per 100g, please select the button 'Por 100 g'.");
-  }
   return {
     url: location.href,
     name: scrapeName(),
@@ -1757,6 +1725,14 @@ function downloadMarkdown(name, markdown) {
   FileSaver_minExports.saveAs(blob, filename);
 }
 
+function warnForNutrition100g() {
+  const selector = getSelector("Nutrition per 100g button");
+  const nutrition100gActive = document.querySelector(selector);
+  if (!nutrition100gActive) {
+    alert("To get the nutrition facts per 100g, please select the button 'Por 100 g'.");
+  }
+}
+
 GM_addStyle(css$2);
 function ScrapeButton() {
   const [scrapeState, setScrapeState] = d$2("idle");
@@ -1767,6 +1743,7 @@ function ScrapeButton() {
       return;
     }
     setScrapeState("scrapping");
+    warnForNutrition100g();
     const scraped = scrape();
     if (!hasEntries(scraped.nutrition)) {
       addWarning("No nutrition entries found");
@@ -1783,6 +1760,12 @@ function ScrapeButton() {
     if (!hasItems(scraped.allergens)) {
       addWarning("No allergens found");
     }
+    if (scraped.name.status === "error") {
+      addWarning(`No recipe instructions available: ${scraped.name.data}`);
+    }
+    if (scraped.headline.status === "error") {
+      addWarning(`No recipe instructions available: ${scraped.headline.data}`);
+    }
     if (scraped.instructionsHtml.status === "error") {
       addWarning(`No recipe instructions available: ${scraped.instructionsHtml.data}`);
     }
@@ -1793,7 +1776,6 @@ function ScrapeButton() {
       addWarning(`No PDF URL available: ${scraped.pdfUrl.data}`);
     }
     const markdown = compose(scraped);
-    console.log("Scraped data:", markdown);
     const filename = scraped.name.status === "success" ? scraped.name.data : "recipe";
     downloadMarkdown(filename, markdown);
     setScrapeState("just-scrapped");
