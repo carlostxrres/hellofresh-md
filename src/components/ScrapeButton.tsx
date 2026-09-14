@@ -6,29 +6,26 @@ import { useState } from "preact/hooks";
 import { hasEntries, hasItems, sleep } from "@/utils"
 import compose from "@/services/compose";
 import downloadMarkdown from "@/services/download";
+import { FileDown, Loader, Check } from 'lucide-preact';
 
 GM_addStyle(css);
 
+type ScrapeState =
+    | "idle"
+    | "scrapping"
+    | "just-scrapped"
+
 export default function () {
-    const [scrapping, setScrapping] = useState<boolean>(false)
-    const [justScrapped, setJustScraped] = useState<boolean>(false)
+    const [scrapeState, setScrapeState] = useState<ScrapeState>("idle")
     const [warnings, setWarnings] = useState<string[]>([])
     const addWarning = (warning: string) => setWarnings(prev => [...prev, warning])
 
-    const buttonText = scrapping
-        ? "Scraping..."
-        : justScrapped
-            ? "Scrapped!"
-            : status.value.state === "loading"
-                ? "Scrape anyway"
-                : "Scrape"
-
     const onClick = () => {
-        if (scrapping) {
+        if (scrapeState !== "idle") {
             return
         }
 
-        setScrapping(true)
+        setScrapeState("scrapping")
 
         const scraped = scrape()
 
@@ -72,9 +69,8 @@ export default function () {
         const filename = scraped.name.status === "success" ? scraped.name.data : "recipe"
         downloadMarkdown(filename, markdown)
 
-        setScrapping(false)
-        setJustScraped(true)
-        sleep(3000).then(() => setJustScraped(false))
+        setScrapeState("just-scrapped")
+        sleep(3000).then(() => setScrapeState("idle"))
     }
 
     return (
@@ -86,7 +82,33 @@ export default function () {
             }
 
             <Button onClick={onClick}>
-                {buttonText}
+                {scrapeState === "idle" && status.value.state === "loading" && (
+                    <>
+                        <FileDown />
+                        Scrape anyway
+                    </>
+                )}
+
+                {scrapeState === "idle" && status.value.state !== "loading" && (
+                    <>
+                        <FileDown />
+                        Scrape
+                    </>
+                )}
+
+                {scrapeState === "scrapping" && (
+                    <>
+                        <Loader />
+                        Scrapping...
+                    </>
+                )}
+
+                {scrapeState === "just-scrapped" && (
+                    <>
+                        <Check />
+                        Scrapped!
+                    </>
+                )}
             </Button>
         </>
     )
