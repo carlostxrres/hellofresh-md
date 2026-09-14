@@ -29,6 +29,7 @@ export default function () {
         setScrapeState("scrapping")
 
         warnForNutrition100g()
+        
         const scraped = scrape()
 
         if (!hasEntries(scraped.nutrition)) {
