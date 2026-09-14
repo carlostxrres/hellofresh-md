@@ -1,0 +1,25 @@
+/* Port of shadcn/ui Separator (new-york, Tailwind v4) to plain CSS. */
+
+/* bg-border shrink-0 */
+.hfmd-separator {
+    flex-shrink: 0;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background-color: var(--border);
+}
+
+/* data-[orientation=horizontal]:h-px data-[orientation=horizontal]:w-full */
+.hfmd-separator--horizontal {
+    height: 1px;
+    width: 100%;
+    margin-block: 1lh;
+}
+
+/* data-[orientation=vertical]:h-full data-[orientation=vertical]:w-px */
+.hfmd-separator--vertical {
+    height: 100%;
+    width: 1px;
+    margin-inline: 1lh;
+}
