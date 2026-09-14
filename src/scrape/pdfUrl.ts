@@ -1,0 +1,28 @@
+import { type Response } from "@/types/response"
+import { getSelector } from "@/data/selectors"
+
+export default function (): Response<string> {
+
+  const selector = getSelector("Recipe PDF")
+    const pdfUrl = document.querySelector(selector)
+
+    if (!pdfUrl) {
+        return {
+            status: "error",
+            data: "PDF URL not found"
+        }
+    }
+
+    const url = pdfUrl.getAttribute("href")
+    if (!url) {
+        return {
+            status: "error",
+            data: "PDF URL is empty"
+        }
+    }
+
+    return {
+        status: "success",
+        data: url
+    }
+}
