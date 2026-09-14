@@ -4,7 +4,7 @@ import { getSelector } from "@/data/selectors"
 
 type NutritionEntry = [NutritionKey, string]
 
-const NUTRITION_MAP: Record<string, NutritionKey> = { // to do: rename
+const NUTRITION_MAP: Record<string, NutritionKey> = {
   // "Valor energético (kJ)": "",
   "Valor energético (kcal)": "kcal",
   "Grasas": "fat_g",
