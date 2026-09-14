@@ -27,7 +27,6 @@ export default function () {
 }
 
 export function look(exit: () => void = () => { }) {
-    console.log("looking")
     let foundSomething = false
 
     const updated = selectorsStatus.value.map(status => {

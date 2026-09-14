@@ -29,7 +29,7 @@ export default function () {
         setScrapeState("scrapping")
 
         warnForNutrition100g()
-        
+
         const scraped = scrape()
 
         if (!hasEntries(scraped.nutrition)) {
@@ -74,7 +74,6 @@ export default function () {
 
         // Compose the Markdown file
         const markdown = compose(scraped)
-        console.log("Scraped data:", markdown)
 
         // Download the Markdown file, named after the recipe
         const filename = scraped.name.status === "success" ? scraped.name.data : "recipe"
