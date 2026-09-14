@@ -4,7 +4,6 @@ import css from "./ScrapeButton.css";
 import Button from "@/components/ui/Button"
 import { useState } from "preact/hooks";
 import { hasEntries, hasItems, sleep } from "@/utils"
-import Separator from "@/components/ui/Separator"
 import compose from "@/services/compose";
 import downloadMarkdown from "@/services/download";
 
@@ -80,9 +79,6 @@ export default function () {
 
     return (
         <>
-            {/* to do: use a custom, shadcn-like <Hr /> */}
-            <Separator />
-
             {warnings.length > 0 &&
                 <ul class="scrape-warnings">
                     {warnings.map(warning => <li key={warning}>warning</li>)}

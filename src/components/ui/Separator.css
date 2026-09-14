@@ -14,12 +14,10 @@
 .hfmd-separator--horizontal {
     height: 1px;
     width: 100%;
-    margin-block: 1lh;
 }
 
 /* data-[orientation=vertical]:h-full data-[orientation=vertical]:w-px */
 .hfmd-separator--vertical {
     height: 100%;
     width: 1px;
-    margin-inline: 1lh;
 }
