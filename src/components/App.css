@@ -2,6 +2,7 @@
     position: fixed;
     inset: 1rem 1rem auto auto;
     background-color: white;
+    width: 20rem;
     padding: 1rem;
     z-index: 99999;
     border-radius: 12px;
