@@ -1,0 +1,9 @@
+.hellofresh-md {
+    position: fixed;
+    inset: 1rem 1rem auto auto;
+    background-color: white;
+    padding: 1rem;
+    z-index: 99999;
+    border-radius: 12px;
+    border: 1px solid gray;
+}
