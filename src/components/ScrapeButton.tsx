@@ -11,18 +11,22 @@ import downloadMarkdown from "@/services/download";
 GM_addStyle(css);
 
 export default function () {
-    const [scraping, setScraping] = useState<boolean>(false)
+    const [scrapping, setScrapping] = useState<boolean>(false)
     const [warnings, setWarnings] = useState<string[]>([])
     const addWarning = (warning: string) => setWarnings(prev => [...prev, warning])
 
-    const buttonText = scraping
+    const buttonText = scrapping
         ? "Scraping..."
         : status.value.state === "loading"
             ? "Scrape anyway"
             : "Scrape"
 
     const onClick = () => {
-        setScraping(true)
+        if (scrapping) {
+            return
+        }
+
+        setScrapping(true)
 
         const scraped = scrape()
 
@@ -66,7 +70,7 @@ export default function () {
         const filename = scraped.name.status === "success" ? scraped.name.data : "recipe"
         downloadMarkdown(filename, markdown)
 
-        setScraping(false)
+        setScrapping(false)
     }
 
     return (
