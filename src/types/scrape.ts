@@ -13,6 +13,8 @@ export type Scrape = {
     utensils: string[];
     allergens: string[];
 
+    name: Response<string>;
+    headline: Response<string>;
     instructionsHtml: Response<string[]>;
     description: Response<string>;
     pdfUrl: Response<string>;

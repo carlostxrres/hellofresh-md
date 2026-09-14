@@ -6,6 +6,8 @@ import scrapeInstructionsHtml from "@/scrape/instructionsHtml"
 import scrapeAllergens from "@/scrape/allergens"
 import scrapeUtensils from "@/scrape/utensils"
 import scrapePdfUrl from "@/scrape/pdfUrl"
+import scrapeName from "@/scrape/name"
+import scrapeHeadline from "@/scrape/headline"
 import { getSelector } from "@/data/selectors"
 import { type Scrape } from "@/types/scrape"
 
@@ -21,6 +23,8 @@ export default function(): Scrape {
 
     return {
         url: location.href,
+        name: scrapeName(),
+        headline: scrapeHeadline(),
         nutrition: scrapeNutrition(),
         description: scrapeDescription(),
         pdfUrl: scrapePdfUrl(),

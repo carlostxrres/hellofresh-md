@@ -1,4 +1,6 @@
 export type SelectorName =
+  | 'Recipe Name'
+  | 'Headline'
   | 'Allergens'
   | 'Description'
   | 'Nutrition per 100g button'

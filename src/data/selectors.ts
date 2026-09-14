@@ -8,6 +8,14 @@ type SelectorEntry = {
 // Here should be all "document.query..." calls that will be used to scrape the data.
 export const selectors: SelectorEntry[] = [
     {
+        name: 'Recipe Name',
+        string: '[data-test-id="recipe-name"]',
+    },
+    {
+        name: 'Headline',
+        string: '[data-test-id="recipe-headline"]',
+    },
+    {
         name: 'Allergens',
         string: '[data-test-id="recipe-allergens"] ul li',
     },
