@@ -19,7 +19,7 @@ export default function () {
     const buttonText = scrapping
         ? "Scraping..."
         : justScrapped
-            ? "Scapped!"
+            ? "Scrapped!"
             : status.value.state === "loading"
                 ? "Scrape anyway"
                 : "Scrape"
