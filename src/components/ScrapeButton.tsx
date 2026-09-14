@@ -2,39 +2,87 @@ import { status } from "@/stores/status";
 import scrape from "@/scrape";
 import css from "./ScrapeButton.css";
 import Button from "@/components/ui/Button"
+import { useState } from "preact/hooks";
+import { hasEntries, hasItems, sleep } from "@/utils"
+import Separator from "@/components/ui/Separator"
+import compose from "@/services/compose";
+import downloadMarkdown from "@/services/download";
 
 GM_addStyle(css);
 
-const onClick = () => {
-  const scraped = scrape()
-  console.log("Scraped data:", scraped)
-
-  // ONGOING WORK HERE 2026-09-14
-
-  // Show warnings if:
-  // - has 0 entries:
-  //   - nutrition: Nutrition;
-  //   - metrics: Metrics;
-  // - has 0 items:
-  //   - ingredients: Amount[];
-  //   - utensils: string[];
-  //   - allergens: string[];
-  // - has data.status === "error" (and show its message):
-  //   - instructionsHtml: Response<string[]>;
-  //   - description: Response<string>;
-  //   - pdfUrl: Response<string>;
-
-  // Compose the Markdown file
-
-  // If everything is ok, download the Markdown file
-
-  // If there are errors, show a "download anyway" button
-}
-
 export default function () {
+    const [scraping, setScraping] = useState<boolean>(false)
+    const [warnings, setWarnings] = useState<string[]>([])
+    const addWarning = (warning: string) => setWarnings(prev => [...prev, warning])
+
+    const buttonText = scraping
+        ? "Scraping..."
+        : status.value.state === "loading"
+            ? "Scrape anyway"
+            : "Scrape"
+
+    const onClick = () => {
+        setScraping(true)
+
+        const scraped = scrape()
+
+        if (!hasEntries(scraped.nutrition)) {
+            addWarning("No nutrition entries found")
+        }
+
+        if (!hasEntries(scraped.metrics)) {
+            addWarning("No metric entries found")
+        }
+
+        if (!hasItems(scraped.ingredients)) {
+            addWarning("No ingredients found")
+        }
+
+        if (!hasItems(scraped.utensils)) {
+            addWarning("No utensils found")
+        }
+
+        if (!hasItems(scraped.allergens)) {
+            addWarning("No allergens found")
+        }
+
+        if (scraped.instructionsHtml.status === "error") {
+            addWarning(`No recipe instructions available: ${scraped.instructionsHtml.data}`)
+        }
+
+        if (scraped.description.status === "error") {
+            addWarning(`No recipe description available: ${scraped.description.data}`)
+        }
+
+        if (scraped.pdfUrl.status === "error") {
+            addWarning(`No PDF URL available: ${scraped.pdfUrl.data}`)
+        }
+
+        // Compose the Markdown file
+        const markdown = compose(scraped)
+        console.log("Scraped data:", markdown)
+
+        // Download the Markdown file, named after the recipe
+        const filename = scraped.name.status === "success" ? scraped.name.data : "recipe"
+        downloadMarkdown(filename, markdown)
+
+        setScraping(false)
+    }
+
     return (
-        <Button onClick={onClick}>
-            {status.value.state === "loading" ? "Scrape anyway" : "Scrape"}
-        </Button>
+        <>
+            {/* to do: use a custom, shadcn-like <Hr /> */}
+            <Separator />
+
+            {warnings.length > 0 &&
+                <ul class="scrape-warnings">
+                    {warnings.map(warning => <li key={warning}>warning</li>)}
+                </ul>
+            }
+
+            <Button onClick={onClick}>
+                {buttonText}
+            </Button>
+        </>
     )
 }

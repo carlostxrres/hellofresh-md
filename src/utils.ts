@@ -12,6 +12,18 @@ export function arrayToMarkdownList(array: string[], indent: number = 0): string
     .join("\n")
 }
 
+export function hasItems(array: any[]) {
+  return array.length > 0
+}
+
+export function hasEntries(record: Record<any, any>) {
+  const keys = Object.keys(record)
+  return hasItems(keys)
+}
+
+export const sleep = async (delay = 1000) => {
+  await new Promise((resolve) => setTimeout(resolve, delay));
+};
 
 // export const waitForElement = (selector: string): Promise<Element> => {
 //   const getElement = () => document.querySelector(selector);
@@ -55,10 +67,6 @@ export function arrayToMarkdownList(array: string[], indent: number = 0): string
 //     });
 //   });
 // }
-
-// export const sleep = async (delay = 1000) => {
-//   await new Promise((resolve) => setTimeout(resolve, delay));
-// };
 
 // export const escapeHtml = (unsafe: string) => {
 //   return unsafe
