@@ -12,14 +12,17 @@ GM_addStyle(css);
 
 export default function () {
     const [scrapping, setScrapping] = useState<boolean>(false)
+    const [justScrapped, setJustScraped] = useState<boolean>(false)
     const [warnings, setWarnings] = useState<string[]>([])
     const addWarning = (warning: string) => setWarnings(prev => [...prev, warning])
 
     const buttonText = scrapping
         ? "Scraping..."
-        : status.value.state === "loading"
-            ? "Scrape anyway"
-            : "Scrape"
+        : justScrapped
+            ? "Scapped!"
+            : status.value.state === "loading"
+                ? "Scrape anyway"
+                : "Scrape"
 
     const onClick = () => {
         if (scrapping) {
@@ -71,6 +74,8 @@ export default function () {
         downloadMarkdown(filename, markdown)
 
         setScrapping(false)
+        setJustScraped(true)
+        sleep(3000).then(() => setJustScraped(false))
     }
 
     return (
