@@ -1,0 +1,28 @@
+{
+  "name": "Markdown Hellofresh",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "build": "rollup -c",
+    "watch": "rollup -c -w"
+  },
+  "author": "ntorcarl",
+  "license": "ISC",
+  "description": "Tampermonkey script to save Hellofresh recipes as Markdown",
+  "devDependencies": {
+    "@rollup/plugin-alias": "^5.1.1",
+    "@rollup/plugin-commonjs": "^28.0.3",
+    "@rollup/plugin-node-resolve": "^16.0.1",
+    "@rollup/plugin-terser": "^1.0.0",
+    "@rollup/plugin-typescript": "^12.1.2",
+    "@types/tampermonkey": "^5.0.4",
+    "rollup": "^4.39.0",
+    "rollup-plugin-esbuild": "^6.2.1",
+    "rollup-plugin-import-css": "^3.5.8",
+    "tslib": "^2.8.1",
+    "typescript": "^5.8.3"
+  },
+  "dependencies": {
+    "preact": "^10.26.7"
+  }
+}

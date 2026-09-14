@@ -1,0 +1,31 @@
+{
+    "compilerOptions": {
+        "target": "ES2024",
+        "module": "ESNext",
+        "moduleResolution": "Node",
+        "declaration": false,
+        "outDir": "./dist",
+        "strict": true,
+        "esModuleInterop": true,
+        "forceConsistentCasingInFileNames": true,
+        "skipLibCheck": true,
+        "baseUrl": ".",
+        "paths": {
+            "@/*": [
+                "src/*"
+            ]
+        },
+        "types": [
+            "tampermonkey",
+            "preact"
+        ],
+        "noEmit": true,
+        "declarationMap": false,
+        "jsx": "react-jsx",
+        "jsxImportSource": "preact",
+        "allowSyntheticDefaultImports": true
+    },
+    "include": [
+        "src"
+    ]
+}

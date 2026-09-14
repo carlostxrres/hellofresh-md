@@ -1,0 +1,13 @@
+// ==UserScript==
+// @name         Markdown Hellofresh
+// @description	 Save Hellofresh recipes as Markdown
+// @author       carlostxrres
+// @version      0.0.1
+// @match        https://www.hellofresh.es/recipes/*
+// @grant        GM.xmlHttpRequest
+// @grant        GM.getValue
+// @grant        GM.setValue
+// @grant        GM.deleteValue
+// @grant        GM_addStyle
+// @noframes
+// ==/UserScript==
