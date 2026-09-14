@@ -1,0 +1,11 @@
+export type SelectorName =
+  | 'Allergens'
+  | 'Description'
+  | 'Nutrition per 100g button'
+  | 'Shipped Ingredients'
+  | 'Not Shipped Ingredients'
+  | 'Instructions'
+  | 'Recipe Metrics'
+  | 'Nutrition Step'
+  | 'Recipe PDF'
+  | 'Utensils List Item'
