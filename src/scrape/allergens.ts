@@ -1,12 +1,27 @@
 import { cleanText } from "@/utils"
+import { getSelector } from "@/data/selectors"
 
-function allergenEntryNodeToEntry(entryNode) {
+function allergenEntryNodeToEntry(entryNode: Element): string | null {
   const spans = entryNode.querySelectorAll("span")
+  if (spans.length < 1) {
+    return null
+  }
+
   const utensilNode = spans[0]
-  return cleanText(utensilNode.textContent)
+
+  const allergen = cleanText(utensilNode.textContent)
+  if (allergen.length < 1) {
+    return null
+  }
+
+  return allergen
 }
 
-export default function() {
-  const entryNodes = document.querySelectorAll('[data-test-id="recipe-allergens"] ul li')
-  return Array.from(entryNodes).map(allergenEntryNodeToEntry)
+export default function () {
+  const selector = getSelector("Allergens")
+  const entryNodes = document.querySelectorAll(selector)
+  return Array
+    .from(entryNodes)
+    .map(allergenEntryNodeToEntry)
+    .filter((entry): entry is string => entry !== null)
 }

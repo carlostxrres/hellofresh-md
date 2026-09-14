@@ -1,8 +1,8 @@
-export function cleanText(string) {
+export function cleanText(string: string): string {
   return string.trim()
 }
 
-export function arrayToMarkdownList(array, indent = 0) {
+export function arrayToMarkdownList(array: string[], indent: number = 0): string {
   // to do: maybe use a dependency for this
   return array
     .map(item => {
