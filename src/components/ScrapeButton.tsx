@@ -51,6 +51,14 @@ export default function () {
             addWarning("No allergens found")
         }
 
+        if (scraped.name.status === "error") {
+            addWarning(`No recipe instructions available: ${scraped.name.data}`)
+        }
+
+        if (scraped.headline.status === "error") {
+            addWarning(`No recipe instructions available: ${scraped.headline.data}`)
+        }
+
         if (scraped.instructionsHtml.status === "error") {
             addWarning(`No recipe instructions available: ${scraped.instructionsHtml.data}`)
         }
