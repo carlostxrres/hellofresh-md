@@ -169,7 +169,7 @@ const selectors = [
     string: '[data-test-id="utensils-list-item"]'
   }
 ];
-function getSelector(selectorName) {
+function getSelectorString(selectorName) {
   const entry = selectors.find((selector) => selector.name === selectorName);
   return entry.string;
 }
@@ -210,7 +210,7 @@ function look(exit = () => {
     if (selectorStatus.found) {
       return selectorStatus;
     }
-    const selectorString = getSelector(selectorStatus.name);
+    const selectorString = getSelectorString(selectorStatus.name);
     const didFind = document.querySelector(selectorString);
     if (!didFind) {
       return selectorStatus;
@@ -666,7 +666,7 @@ function nutritionEntryNodeToEntry(entryNode) {
   return [correctedKey, value];
 }
 function scrapeNutrition() {
-  const selector = getSelector("Nutrition Step");
+  const selector = getSelectorString("Nutrition Step");
   const entryNodes = document.querySelectorAll(selector);
   const entries = Array.from(entryNodes).map(nutritionEntryNodeToEntry).filter((entry) => entry !== null);
   return Object.fromEntries(entries);
@@ -691,14 +691,14 @@ function metricsEntryNodeToEntry(entryNode) {
   return [correctedKey, value];
 }
 function scrapeMetrics() {
-  const selector = getSelector("Recipe Metrics");
+  const selector = getSelectorString("Recipe Metrics");
   const entryNodes = document.querySelectorAll(selector);
   const entries = Array.from(entryNodes).map(metricsEntryNodeToEntry).filter((entry) => entry !== null);
   return Object.fromEntries(entries);
 }
 
 function scrapeDescription() {
-  const selector = getSelector("Description");
+  const selector = getSelectorString("Description");
   const descriptionNode = document.querySelector(selector);
   if (!descriptionNode) {
     return {
@@ -731,8 +731,8 @@ function ingredientsEntryNodeToEntry(entryNode) {
   };
 }
 function scrapeIngredients() {
-  const selector1 = getSelector("Shipped Ingredients");
-  const selector2 = getSelector("Not Shipped Ingredients");
+  const selector1 = getSelectorString("Shipped Ingredients");
+  const selector2 = getSelectorString("Not Shipped Ingredients");
   const entryNodes1 = document.querySelectorAll(selector1);
   const entryNodes2 = document.querySelectorAll(selector2);
   const entryNodes = [...entryNodes1, ...entryNodes2];
@@ -740,7 +740,7 @@ function scrapeIngredients() {
 }
 
 function scrapeInstructionsHtml() {
-  const selector = getSelector("Instructions");
+  const selector = getSelectorString("Instructions");
   const entryNodes = document.querySelectorAll(selector);
   if (entryNodes.length < 1) {
     return {
@@ -767,7 +767,7 @@ function allergenEntryNodeToEntry(entryNode) {
   return allergen;
 }
 function scrapeAllergens() {
-  const selector = getSelector("Allergens");
+  const selector = getSelectorString("Allergens");
   const entryNodes = document.querySelectorAll(selector);
   return Array.from(entryNodes).map(allergenEntryNodeToEntry).filter((entry) => entry !== null);
 }
@@ -781,13 +781,13 @@ function utensilEntryNodeToEntry(entryNode) {
   return cleanText(utensilNode.textContent);
 }
 function scrapeUtensils() {
-  const selector = getSelector("Utensils List Item");
+  const selector = getSelectorString("Utensils List Item");
   const entryNodes = document.querySelectorAll(selector);
   return Array.from(entryNodes).map(utensilEntryNodeToEntry).filter((entry) => !!entry);
 }
 
 function scrapePdfUrl() {
-  const selector = getSelector("Recipe PDF");
+  const selector = getSelectorString("Recipe PDF");
   const pdfUrl = document.querySelector(selector);
   if (!pdfUrl) {
     return {
@@ -809,7 +809,7 @@ function scrapePdfUrl() {
 }
 
 function scrapeName() {
-  const selector = getSelector("Recipe Name");
+  const selector = getSelectorString("Recipe Name");
   const recipeNameNode = document.querySelector(selector);
   if (!recipeNameNode) {
     return {
@@ -831,7 +831,7 @@ function scrapeName() {
 }
 
 function scrapeHeadline() {
-  const selector = getSelector("Headline");
+  const selector = getSelectorString("Headline");
   const headlineNode = document.querySelector(selector);
   if (!headlineNode) {
     return {
@@ -1998,7 +1998,7 @@ function ScrapeButton() {
     if (scrapeState !== "idle") {
       return;
     }
-    const selector = getSelector("Nutrition per 100g button");
+    const selector = getSelectorString("Nutrition per 100g button");
     const isNutrition100gActive = document.querySelector(selector);
     if (!isNutrition100gActive) {
       const proceed = await nutritionWarning.confirm();
@@ -2079,7 +2079,7 @@ const cssGlobal = ".hellofresh-md{--background:oklch(1 0 0);--foreground:oklch(0
 const MAX_REPETITIONS = 10;
 async function enableNutrition100g(left = MAX_REPETITIONS) {
   console.log("left", left);
-  const selectorNutrition100g = getSelector("Nutrition per 100g button");
+  const selectorNutrition100g = getSelectorString("Nutrition per 100g button");
   const nutrition100g = await waitForElement(selectorNutrition100g);
   if (nutrition100g instanceof HTMLElement) {
     nutrition100g.click();
