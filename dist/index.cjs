@@ -597,7 +597,7 @@ function Ready() {
 }
 
 function cleanText(string) {
-  return string.trim();
+  return (string ?? "").trim();
 }
 function arrayToMarkdownList(array, indent = 0) {
   return array.map((item) => {
