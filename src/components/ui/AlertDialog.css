@@ -1,0 +1,217 @@
+/* Port of shadcn/ui Alert Dialog (new-york, Tailwind v4) to plain CSS.
+ * The content is a native <dialog>; its ::backdrop plays the overlay. */
+
+/* ---- content ----------------------------------------------------------- */
+
+/* fixed top-[50%] left-[50%] z-50 grid w-full max-w-[calc(100%-2rem)]
+ * translate-x-[-50%] translate-y-[-50%] gap-4 rounded-lg border
+ * bg-background p-6 shadow-lg duration-200 */
+.hfmd-alert-dialog {
+    position: fixed;
+    inset: 50% auto auto 50%;
+    translate: -50% -50%;
+    display: grid;
+    gap: 1rem;
+    box-sizing: border-box;
+    width: 100%;
+    max-width: calc(100% - 2rem);
+    max-height: calc(100% - 2rem);
+    margin: 0;
+    padding: 1.5rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius, 0.625rem);
+    background-color: var(--background);
+    color: var(--foreground);
+    box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+    outline: none;
+    overflow: auto;
+    animation-duration: 200ms;
+    animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    animation-fill-mode: both;
+}
+
+/* data-[size=sm]:max-w-xs */
+.hfmd-alert-dialog[data-size="sm"] {
+    max-width: 20rem;
+}
+
+/* data-[size=default]:sm:max-w-lg */
+@media (min-width: 640px) {
+    .hfmd-alert-dialog[data-size="default"] {
+        max-width: 32rem;
+    }
+}
+
+/* data-[state=open]:animate-in data-[state=open]:fade-in-0 data-[state=open]:zoom-in-95 */
+.hfmd-alert-dialog[data-state="open"] {
+    animation-name: hfmd-alert-dialog-in;
+}
+
+/* data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95 */
+.hfmd-alert-dialog[data-state="closed"] {
+    animation-name: hfmd-alert-dialog-out;
+}
+
+@keyframes hfmd-alert-dialog-in {
+    from {
+        opacity: 0;
+        scale: 0.95;
+    }
+}
+
+@keyframes hfmd-alert-dialog-out {
+    to {
+        opacity: 0;
+        scale: 0.95;
+    }
+}
+
+/* ---- overlay (::backdrop) ---------------------------------------------- */
+
+/* fixed inset-0 z-50 bg-black/50 */
+.hfmd-alert-dialog::backdrop {
+    background-color: rgb(0 0 0 / 0.5);
+    animation-duration: 200ms;
+    animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    animation-fill-mode: both;
+}
+
+/* data-[state=open]:animate-in data-[state=open]:fade-in-0 */
+.hfmd-alert-dialog[data-state="open"]::backdrop {
+    animation-name: hfmd-alert-dialog-overlay-in;
+}
+
+/* data-[state=closed]:animate-out data-[state=closed]:fade-out-0 */
+.hfmd-alert-dialog[data-state="closed"]::backdrop {
+    animation-name: hfmd-alert-dialog-overlay-out;
+}
+
+@keyframes hfmd-alert-dialog-overlay-in {
+    from {
+        opacity: 0;
+    }
+}
+
+@keyframes hfmd-alert-dialog-overlay-out {
+    to {
+        opacity: 0;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .hfmd-alert-dialog,
+    .hfmd-alert-dialog::backdrop {
+        animation: none;
+    }
+}
+
+/* ---- header ------------------------------------------------------------ */
+
+/* grid grid-rows-[auto_1fr] place-items-center gap-1.5 text-center */
+.hfmd-alert-dialog-header {
+    display: grid;
+    grid-template-rows: auto 1fr;
+    place-items: center;
+    gap: 0.375rem;
+    text-align: center;
+}
+
+/* has-data-[slot=alert-dialog-media]:grid-rows-[auto_auto_1fr]
+ * has-data-[slot=alert-dialog-media]:gap-x-6 */
+.hfmd-alert-dialog-header:has([data-slot="alert-dialog-media"]) {
+    grid-template-rows: auto auto 1fr;
+    column-gap: 1.5rem;
+}
+
+@media (min-width: 640px) {
+    /* sm:group-data-[size=default]/alert-dialog-content:place-items-start
+     * sm:group-data-[size=default]/alert-dialog-content:text-left */
+    .hfmd-alert-dialog[data-size="default"] .hfmd-alert-dialog-header {
+        place-items: start;
+        text-align: left;
+    }
+
+    /* sm:group-data-[size=default]/alert-dialog-content:has-data-[slot=alert-dialog-media]:grid-rows-[auto_1fr] */
+    .hfmd-alert-dialog[data-size="default"]
+        .hfmd-alert-dialog-header:has([data-slot="alert-dialog-media"]) {
+        grid-template-rows: auto 1fr;
+    }
+}
+
+/* ---- media ------------------------------------------------------------- */
+
+/* mb-2 inline-flex size-16 items-center justify-center rounded-md bg-muted */
+.hfmd-alert-dialog-media {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    width: 4rem;
+    height: 4rem;
+    margin-bottom: 0.5rem;
+    border-radius: calc(var(--radius, 0.625rem) - 2px);
+    background-color: var(--muted);
+}
+
+/* *:[svg:not([class*='size-'])]:size-8 */
+.hfmd-alert-dialog-media > svg:not([class*="size-"]) {
+    width: 2rem;
+    height: 2rem;
+}
+
+/* sm:group-data-[size=default]/alert-dialog-content:row-span-2 */
+@media (min-width: 640px) {
+    .hfmd-alert-dialog[data-size="default"] .hfmd-alert-dialog-media {
+        grid-row: span 2 / span 2;
+    }
+}
+
+/* ---- title / description ----------------------------------------------- */
+
+/* text-lg font-semibold */
+.hfmd-alert-dialog-title {
+    margin: 0;
+    font-size: 1.125rem;
+    line-height: 1.75rem;
+    font-weight: 600;
+}
+
+/* sm:group-data-[size=default]/alert-dialog-content:group-has-data-[slot=alert-dialog-media]/alert-dialog-content:col-start-2 */
+@media (min-width: 640px) {
+    .hfmd-alert-dialog[data-size="default"]:has([data-slot="alert-dialog-media"])
+        .hfmd-alert-dialog-title {
+        grid-column-start: 2;
+    }
+}
+
+/* text-sm text-muted-foreground */
+.hfmd-alert-dialog-description {
+    margin: 0;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    color: var(--muted-foreground);
+}
+
+/* ---- footer ------------------------------------------------------------ */
+
+/* flex flex-col-reverse gap-2 */
+.hfmd-alert-dialog-footer {
+    display: flex;
+    flex-direction: column-reverse;
+    gap: 0.5rem;
+}
+
+/* group-data-[size=sm]/alert-dialog-content:grid
+ * group-data-[size=sm]/alert-dialog-content:grid-cols-2 */
+.hfmd-alert-dialog[data-size="sm"] .hfmd-alert-dialog-footer {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+/* sm:flex-row sm:justify-end */
+@media (min-width: 640px) {
+    .hfmd-alert-dialog-footer {
+        flex-direction: row;
+        justify-content: flex-end;
+    }
+}
