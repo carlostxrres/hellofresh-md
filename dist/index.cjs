@@ -133,8 +133,12 @@ const selectors = [
     string: '[data-test-id="recipe-description-text"]'
   },
   {
-    name: "Nutrition per 100g button",
+    name: "Nutrition per 100g button active",
     string: '[aria-pressed="true"] [data-translation-id="recipe-detail.recipe-detail.per-100g"]'
+  },
+  {
+    name: "Nutrition per 100g button",
+    string: '[data-translation-id="recipe-detail.recipe-detail.per-100g"]'
   },
   {
     name: "Shipped Ingredients",
@@ -175,6 +179,10 @@ const initialStatus = selectors.map((selector) => ({
   found: false
 }));
 const selectorsStatus = y$1(initialStatus);
+const getSelectorStatus = (selectorName) => {
+  const entry = selectorsStatus.value.find((selector) => selector.name === selectorName);
+  return entry.found;
+};
 
 const DEBOUNCE_MS = 100;
 function observeReadiness() {
@@ -197,6 +205,7 @@ function observeReadiness() {
 }
 function look(exit = () => {
 }) {
+  console.log("look");
   let foundSomething = false;
   const updated = selectorsStatus.value.map((selectorStatus) => {
     if (selectorStatus.found) {
@@ -614,6 +623,24 @@ function hasEntries(record) {
 }
 const sleep = async (delay = 1e3) => {
   await new Promise((resolve) => setTimeout(resolve, delay));
+};
+const waitForElement = (selector) => {
+  const getElement = () => document.querySelector(selector);
+  return new Promise((resolve) => {
+    const initialElement = getElement();
+    if (initialElement) {
+      resolve(initialElement);
+      return;
+    }
+    const observer = new MutationObserver(() => {
+      const element = getElement();
+      if (element) {
+        resolve(element);
+        observer.disconnect();
+      }
+    });
+    observer.observe(document.body, { childList: true, subtree: true });
+  });
 };
 
 const NUTRITION_MAP = {
@@ -2050,8 +2077,24 @@ function App() {
 
 const cssGlobal = ".hellofresh-md{--background:oklch(1 0 0);--foreground:oklch(0.145 0 0);--primary:oklch(0.205 0 0);--primary-foreground:oklch(0.985 0 0);--secondary:oklch(0.97 0 0);--secondary-foreground:oklch(0.205 0 0);--muted:oklch(0.97 0 0);--muted-foreground:oklch(0.556 0 0);--accent:oklch(0.97 0 0);--accent-foreground:oklch(0.205 0 0);--destructive:oklch(0.577 0.245 27.325);--border:oklch(0.922 0 0);--input:oklch(0.922 0 0);--ring:oklch(0.708 0 0);--radius:0.625rem;color:var(--foreground);font-family:ui-sans-serif,system-ui,sans-serif,\"Apple Color Emoji\",\"Segoe UI Emoji\";}";
 
+async function enableNutrition100g() {
+  const selectorNutrition100g = getSelector("Nutrition per 100g button");
+  const nutrition100g = await waitForElement(selectorNutrition100g);
+  if (nutrition100g instanceof HTMLElement) {
+    nutrition100g.click();
+  }
+  await sleep(500);
+  look();
+  await sleep(500);
+  const is100gActive = getSelectorStatus("Nutrition per 100g button active");
+  if (!is100gActive) {
+    enableNutrition100g();
+  }
+}
+
 GM_addStyle(cssGlobal);
 const appWrapper = document.createElement("div");
 document.body.appendChild(appWrapper);
 R(u$2(App, {}), appWrapper);
 observeReadiness();
+enableNutrition100g();
