@@ -29,20 +29,20 @@ export default function () {
 export function look(exit: () => void = () => { }) {
     let foundSomething = false
 
-    const updated = selectorsStatus.value.map(status => {
-        if (status.found) {
-            return status
+    const updated = selectorsStatus.value.map(selectorStatus => {
+        if (selectorStatus.found) {
+            return selectorStatus
         }
 
-        const selectorString = getSelector(status.name)
+        const selectorString = getSelector(selectorStatus.name)
         const didFind = document.querySelector(selectorString)
         if (!didFind) {
-            return status
+            return selectorStatus
         }
 
         foundSomething = true
         return {
-            ...status,
+            ...selectorStatus,
             found: true
         }
     })
