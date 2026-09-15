@@ -5,10 +5,6 @@
 // @version      0.0.1
 // @source       https://github.com/carlostxrres/hellofresh-md
 // @match        https://www.hellofresh.es/recipes/*
-// @grant        GM.xmlHttpRequest
-// @grant        GM.getValue
-// @grant        GM.setValue
-// @grant        GM.deleteValue
 // @grant        GM_addStyle
 // @noframes
 // ==/UserScript==
