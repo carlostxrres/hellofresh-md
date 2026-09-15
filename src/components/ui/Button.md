@@ -120,7 +120,7 @@ import { buttonClass } from "@/components/ui/Button";
 <a href="/x" class={buttonClass({ variant: "outline", size: "sm" })}>Docs</a>
 ```
 
-Also exported: `buttonVariants` (the variant/size → class map), `cn()` (joins truthy class values), and the `ButtonProps`, `ButtonVariant` and `ButtonSize` types.
+Also exported: `buttonVariants` (the variant/size → class map), `cn()` (joins truthy class values), `Slot` (the `asChild` helper, reused by other components) and the `ButtonProps`, `ButtonVariant` and `ButtonSize` types.
 
 ## Theming
 

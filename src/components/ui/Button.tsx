@@ -100,7 +100,7 @@ function mergeProps(slotProps: AnyProps, childProps: AnyProps): AnyProps {
 }
 
 // `any` element type: the slot adopts whatever element its child renders.
-const Slot = forwardRef<any, AnyProps & { children?: ComponentChildren }>(
+export const Slot = forwardRef<any, AnyProps & { children?: ComponentChildren }>(
   function Slot({ children, ...slotProps }, ref) {
     const child = toChildArray(children).find(isValidElement) as
       | VNode<AnyProps>
