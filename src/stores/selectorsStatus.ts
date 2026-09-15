@@ -13,3 +13,8 @@ const initialStatus = selectors.map(selector => ({
 }))
 
 export const selectorsStatus = signal<SelectorStatus[]>(initialStatus);
+
+export const getSelectorStatus = (selectorName: SelectorName) => {
+    const entry = selectorsStatus.value.find(selector => selector.name === selectorName) as SelectorStatus;
+    return entry.found
+}

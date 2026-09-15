@@ -3,6 +3,7 @@ export type SelectorName =
   | 'Headline'
   | 'Allergens'
   | 'Description'
+  | 'Nutrition per 100g button active'
   | 'Nutrition per 100g button'
   | 'Shipped Ingredients'
   | 'Not Shipped Ingredients'

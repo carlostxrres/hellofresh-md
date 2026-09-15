@@ -24,8 +24,12 @@ export const selectors: SelectorEntry[] = [
         string: '[data-test-id="recipe-description-text"]',
     },
     {
-        name: 'Nutrition per 100g button',
+        name: 'Nutrition per 100g button active',
         string: '[aria-pressed="true"] [data-translation-id="recipe-detail.recipe-detail.per-100g"]',
+    },
+    {
+        name: 'Nutrition per 100g button',
+        string: '[data-translation-id="recipe-detail.recipe-detail.per-100g"]',
     },
     {
         name: 'Shipped Ingredients',
