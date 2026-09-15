@@ -105,17 +105,10 @@ export default function () {
             <NutritionWarningDialog {...nutritionWarning} />
 
             <Button onClick={onClick}>
-                {scrapeState === "idle" && status.value.state === "loading" && (
+                {scrapeState === "idle" && (
                     <>
                         <FileDown />
-                        Scrape anyway
-                    </>
-                )}
-
-                {scrapeState === "idle" && status.value.state !== "loading" && (
-                    <>
-                        <FileDown />
-                        Scrape
+                        {status.value.state === "ready" ? "Scrape" : "Scrape anyway"}
                     </>
                 )}
 
