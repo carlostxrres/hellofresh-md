@@ -7,7 +7,9 @@ import { hasEntries, hasItems, sleep } from "@/utils"
 import compose from "@/services/compose";
 import downloadMarkdown from "@/services/download";
 import { FileDown, Loader, Check } from 'lucide-preact';
-import warnForNutrition100g from "@/services/warnForNutrition100g";
+import { getSelector } from "@/data/selectors"
+import { useConfirm } from "@/hooks/useConfirm";
+import NutritionWarningDialog from "./NutritionWarningDialog";
 
 GM_addStyle(css);
 
@@ -21,14 +23,23 @@ export default function () {
     const [warnings, setWarnings] = useState<string[]>([])
     const addWarning = (warning: string) => setWarnings(prev => [...prev, warning])
 
-    const onClick = () => {
+    const nutritionWarning = useConfirm();
+
+    const onClick = async () => {
         if (scrapeState !== "idle") {
             return
         }
 
-        setScrapeState("scrapping")
+        const selector = getSelector("Nutrition per 100g button")
+        const isNutrition100gActive = document.querySelector(selector)
+        if (!isNutrition100gActive) {
+            const proceed = await nutritionWarning.confirm();
+            if (!proceed) {
+                return;
+            }
+        }
 
-        warnForNutrition100g()
+        setScrapeState("scrapping")
 
         const scraped = scrape()
 
@@ -90,6 +101,8 @@ export default function () {
                     {warnings.map(warning => <li key={warning}>warning</li>)}
                 </ul>
             }
+
+            <NutritionWarningDialog {...nutritionWarning} />
 
             <Button onClick={onClick}>
                 {scrapeState === "idle" && status.value.state === "loading" && (
