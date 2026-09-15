@@ -3,6 +3,7 @@
 // @description	 Save Hellofresh recipes as Markdown
 // @author       carlostxrres
 // @version      0.0.1
+// @source       https://github.com/carlostxrres/hellofresh-md
 // @match        https://www.hellofresh.es/recipes/*
 // @grant        GM.xmlHttpRequest
 // @grant        GM.getValue
