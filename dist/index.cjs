@@ -205,7 +205,6 @@ function observeReadiness() {
 }
 function look(exit = () => {
 }) {
-  console.log("look");
   let foundSomething = false;
   const updated = selectorsStatus.value.map((selectorStatus) => {
     if (selectorStatus.found) {
@@ -2077,7 +2076,9 @@ function App() {
 
 const cssGlobal = ".hellofresh-md{--background:oklch(1 0 0);--foreground:oklch(0.145 0 0);--primary:oklch(0.205 0 0);--primary-foreground:oklch(0.985 0 0);--secondary:oklch(0.97 0 0);--secondary-foreground:oklch(0.205 0 0);--muted:oklch(0.97 0 0);--muted-foreground:oklch(0.556 0 0);--accent:oklch(0.97 0 0);--accent-foreground:oklch(0.205 0 0);--destructive:oklch(0.577 0.245 27.325);--border:oklch(0.922 0 0);--input:oklch(0.922 0 0);--ring:oklch(0.708 0 0);--radius:0.625rem;color:var(--foreground);font-family:ui-sans-serif,system-ui,sans-serif,\"Apple Color Emoji\",\"Segoe UI Emoji\";}";
 
-async function enableNutrition100g() {
+const MAX_REPETITIONS = 10;
+async function enableNutrition100g(left = MAX_REPETITIONS) {
+  console.log("left", left);
   const selectorNutrition100g = getSelector("Nutrition per 100g button");
   const nutrition100g = await waitForElement(selectorNutrition100g);
   if (nutrition100g instanceof HTMLElement) {
@@ -2087,8 +2088,8 @@ async function enableNutrition100g() {
   look();
   await sleep(500);
   const is100gActive = getSelectorStatus("Nutrition per 100g button active");
-  if (!is100gActive) {
-    enableNutrition100g();
+  if (!is100gActive && left > 0) {
+    enableNutrition100g(left - 1);
   }
 }
 
