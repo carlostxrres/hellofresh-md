@@ -3,7 +3,10 @@ import { waitForElement, sleep } from "@/utils";
 import { look } from "@/services/observeReadiness";
 import { getSelectorStatus } from "@/stores/selectorsStatus"
 
-async function enableNutrition100g () {
+const MAX_REPETITIONS = 10
+
+async function enableNutrition100g (left = MAX_REPETITIONS) {
+    console.log("left", left)
     const selectorNutrition100g = getSelector("Nutrition per 100g button")
     const nutrition100g = await waitForElement(selectorNutrition100g)
 
@@ -18,8 +21,8 @@ async function enableNutrition100g () {
     await sleep(500)
     
     const is100gActive = getSelectorStatus('Nutrition per 100g button active')
-    if (!is100gActive) {
-        enableNutrition100g()
+    if (!is100gActive && left > 0) {
+        enableNutrition100g(left - 1)
     }
 }
 
