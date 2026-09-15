@@ -24,3 +24,25 @@ export function hasEntries(record: Record<any, any>) {
 export const sleep = async (delay = 1000) => {
   await new Promise((resolve) => setTimeout(resolve, delay));
 };
+
+export const waitForElement = (selector: string): Promise<Element> => {
+  const getElement = () => document.querySelector(selector);
+
+  return new Promise((resolve) => {
+    const initialElement = getElement();
+    if (initialElement) {
+      resolve(initialElement);
+      return;
+    }
+
+    const observer = new MutationObserver(() => {
+      const element = getElement();
+      if (element) {
+        resolve(element);
+        observer.disconnect();
+      }
+    });
+
+    observer.observe(document.body, { childList: true, subtree: true });
+  });
+};
