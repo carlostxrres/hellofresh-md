@@ -581,11 +581,11 @@ const iconData = {
 };
 const Repeat = createLucideIcon(iconData);
 
-const css$4 = ".selectors-status{padding:0;margin:0;}.selectors-status li{list-style:none;}.selectors-status{font-size:.9rem;margin-block:1lh;color:gray;}";
+const css$4 = ".selectors-status{padding:0;margin:0;}.selectors-status li{list-style:none;}.selectors-status{font-size:.9rem;color:gray;}";
 
 GM_addStyle(css$4);
 function Loading() {
-  return u$2("div", { class: "hellofresh-md-loading", children: [u$2("div", { children: "Loading..." }), selectorsStatus.value.length > 0 && u$2(S$1, { children: [u$2("ul", { class: "selectors-status", children: selectorsStatus.value.filter((selectorStatus) => !selectorStatus.found).map((selectorStatus) => u$2("li", { children: [selectorStatus.name, ": ", selectorStatus.found ? "found" : "not found"] }, selectorStatus.name)) }), u$2(Button, { variant: "secondary", onClick: () => look(), children: [u$2(Repeat, {}), "Check again"] })] })] });
+  return u$2(S$1, { children: [u$2("div", { children: "Loading..." }), selectorsStatus.value.length > 0 && u$2(S$1, { children: [u$2("ul", { class: "selectors-status", children: selectorsStatus.value.filter((selectorStatus) => !selectorStatus.found).map((selectorStatus) => u$2("li", { children: [selectorStatus.name, ": ", selectorStatus.found ? "found" : "not found"] }, selectorStatus.name)) }), u$2(Button, { variant: "secondary", onClick: () => look(), children: [u$2(Repeat, {}), "Check again"] })] })] });
 }
 
 function Error$1() {
@@ -842,7 +842,7 @@ function scrape() {
   };
 }
 
-const css$3 = ".scrape-warnings{padding:0;margin:0;}.scrape-warnings li{list-style:none;}.scrape-warnings{font-size:.9rem;padding-block:1lh;color:gray;}";
+const css$3 = ".scrape-warnings{padding:0;margin:0;}.scrape-warnings li{list-style:none;}.scrape-warnings{font-size:.9rem;color:gray;}";
 
 function extend(destination) {
   for (var i = 1; i < arguments.length; i++) {
