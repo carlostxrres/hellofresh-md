@@ -1,5 +1,5 @@
-export function cleanText(string: string): string {
-  return string.trim()
+export function cleanText(string: string | null): string {
+  return (string ?? "").trim()
 }
 
 export function arrayToMarkdownList(array: string[], indent: number = 0): string {
