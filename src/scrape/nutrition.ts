@@ -1,6 +1,6 @@
 import { cleanText } from "@/utils"
 import type { NutritionKey, Nutrition } from "@/types/nutrition"
-import { getSelector } from "@/data/selectors"
+import { getSelectorString } from "@/data/selectors"
 
 type NutritionEntry = [NutritionKey, string]
 
@@ -32,7 +32,7 @@ function nutritionEntryNodeToEntry(entryNode: Element): NutritionEntry | null {
 }
 
 export default function (): Nutrition {
-  const selector = getSelector("Nutrition Step")
+  const selector = getSelectorString("Nutrition Step")
   const entryNodes = document.querySelectorAll(selector)
   const entries = Array
     .from(entryNodes)

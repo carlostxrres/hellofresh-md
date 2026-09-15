@@ -1,4 +1,4 @@
-import { getSelector } from "@/data/selectors"
+import { getSelectorString } from "@/data/selectors"
 import { selectorsStatus } from "@/stores/selectorsStatus"
 import { status } from "@/stores/status"
 
@@ -34,7 +34,7 @@ export function look(exit: () => void = () => { }) {
             return selectorStatus
         }
 
-        const selectorString = getSelector(selectorStatus.name)
+        const selectorString = getSelectorString(selectorStatus.name)
         const didFind = document.querySelector(selectorString)
         if (!didFind) {
             return selectorStatus

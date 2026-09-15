@@ -7,7 +7,7 @@ import { hasEntries, hasItems, sleep } from "@/utils"
 import compose from "@/services/compose";
 import downloadMarkdown from "@/services/download";
 import { FileDown, Loader, Check } from 'lucide-preact';
-import { getSelector } from "@/data/selectors"
+import { getSelectorString } from "@/data/selectors"
 import { useConfirm } from "@/hooks/useConfirm";
 import NutritionWarningDialog from "./NutritionWarningDialog";
 
@@ -30,7 +30,7 @@ export default function () {
             return
         }
 
-        const selector = getSelector("Nutrition per 100g button")
+        const selector = getSelectorString("Nutrition per 100g button")
         const isNutrition100gActive = document.querySelector(selector)
         if (!isNutrition100gActive) {
             const proceed = await nutritionWarning.confirm();

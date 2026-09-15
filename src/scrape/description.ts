@@ -1,9 +1,9 @@
 import { cleanText } from "@/utils"
 import { type Response } from "@/types/response"
-import { getSelector } from "@/data/selectors"
+import { getSelectorString } from "@/data/selectors"
 
 export default function(): Response<string> {
-  const selector = getSelector("Description")
+  const selector = getSelectorString("Description")
   const descriptionNode = document.querySelector(selector)
   if (!descriptionNode) {
     return {

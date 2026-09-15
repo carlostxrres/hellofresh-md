@@ -1,8 +1,8 @@
 import { type Response } from "@/types/response"
-import { getSelector } from "@/data/selectors"
+import { getSelectorString } from "@/data/selectors"
 
 export default function(): Response<string[]> {
-  const selector = getSelector("Instructions")
+  const selector = getSelectorString("Instructions")
   const entryNodes = document.querySelectorAll(selector)
   if (entryNodes.length < 1) {
     return {

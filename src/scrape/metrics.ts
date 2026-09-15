@@ -1,6 +1,6 @@
 import { cleanText } from "@/utils"
 import type { MetricsKey, Metrics } from "@/types/metrics"
-import { getSelector } from "@/data/selectors"
+import { getSelectorString } from "@/data/selectors"
 
 type MetricsEntry = [MetricsKey, string]
 
@@ -27,7 +27,7 @@ function metricsEntryNodeToEntry(entryNode: Element): MetricsEntry | null {
 }
 
 export default function (): Metrics {
-  const selector = getSelector("Recipe Metrics")
+  const selector = getSelectorString("Recipe Metrics")
   const entryNodes = document.querySelectorAll(selector)
   const entries = Array
     .from(entryNodes)

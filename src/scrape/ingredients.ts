@@ -1,6 +1,6 @@
 import { cleanText } from "@/utils"
 import { type Amount } from "@/types/amount"
-import { getSelector } from "@/data/selectors"
+import { getSelectorString } from "@/data/selectors"
 
 function ingredientsEntryNodeToEntry(entryNode: Element): Amount | null {
   const spans = entryNode.querySelectorAll("p")
@@ -16,8 +16,8 @@ function ingredientsEntryNodeToEntry(entryNode: Element): Amount | null {
 }
 
 export default function (): Amount[] {
-  const selector1 = getSelector("Shipped Ingredients")
-  const selector2 = getSelector("Not Shipped Ingredients")
+  const selector1 = getSelectorString("Shipped Ingredients")
+  const selector2 = getSelectorString("Not Shipped Ingredients")
   const entryNodes1 = document.querySelectorAll(selector1)
   const entryNodes2 = document.querySelectorAll(selector2)
   const entryNodes = [...entryNodes1, ...entryNodes2]

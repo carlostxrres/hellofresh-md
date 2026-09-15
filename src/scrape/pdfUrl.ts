@@ -1,9 +1,9 @@
 import { type Response } from "@/types/response"
-import { getSelector } from "@/data/selectors"
+import { getSelectorString } from "@/data/selectors"
 
 export default function (): Response<string> {
 
-  const selector = getSelector("Recipe PDF")
+  const selector = getSelectorString("Recipe PDF")
     const pdfUrl = document.querySelector(selector)
 
     if (!pdfUrl) {

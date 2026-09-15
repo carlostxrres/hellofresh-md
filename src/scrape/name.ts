@@ -1,9 +1,9 @@
 import { type Response } from "@/types/response"
-import { getSelector } from "@/data/selectors"
+import { getSelectorString } from "@/data/selectors"
 import { cleanText } from "@/utils"
 
 export default function (): Response<string> {
-    const selector = getSelector("Recipe Name")
+    const selector = getSelectorString("Recipe Name")
     const recipeNameNode = document.querySelector(selector)
 
     if (!recipeNameNode) {

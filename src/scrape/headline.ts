@@ -1,9 +1,9 @@
 import { type Response } from "@/types/response"
-import { getSelector } from "@/data/selectors"
+import { getSelectorString } from "@/data/selectors"
 import { cleanText } from "@/utils"
 
 export default function (): Response<string> {
-    const selector = getSelector("Headline")
+    const selector = getSelectorString("Headline")
     const headlineNode = document.querySelector(selector)
 
     if (!headlineNode) {

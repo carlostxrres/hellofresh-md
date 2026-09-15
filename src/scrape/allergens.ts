@@ -1,5 +1,5 @@
 import { cleanText } from "@/utils"
-import { getSelector } from "@/data/selectors"
+import { getSelectorString } from "@/data/selectors"
 
 function allergenEntryNodeToEntry(entryNode: Element): string | null {
   const spans = entryNode.querySelectorAll("span")
@@ -18,7 +18,7 @@ function allergenEntryNodeToEntry(entryNode: Element): string | null {
 }
 
 export default function () {
-  const selector = getSelector("Allergens")
+  const selector = getSelectorString("Allergens")
   const entryNodes = document.querySelectorAll(selector)
   return Array
     .from(entryNodes)

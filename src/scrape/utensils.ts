@@ -1,5 +1,5 @@
 import { cleanText } from "@/utils"
-import { getSelector } from "@/data/selectors"
+import { getSelectorString } from "@/data/selectors"
 
 function utensilEntryNodeToEntry(entryNode: Element): string | null {
   const spans = entryNode.querySelectorAll("span")
@@ -12,7 +12,7 @@ function utensilEntryNodeToEntry(entryNode: Element): string | null {
 }
 
 export default function () {
-  const selector = getSelector("Utensils List Item")
+  const selector = getSelectorString("Utensils List Item")
   const entryNodes = document.querySelectorAll(selector)
   return Array
     .from(entryNodes)

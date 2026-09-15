@@ -61,7 +61,7 @@ export const selectors: SelectorEntry[] = [
     }
 ]
 
-export function getSelector(selectorName: SelectorName) {
+export function getSelectorString(selectorName: SelectorName) {
     const entry = selectors.find(selector => selector.name === selectorName) as SelectorEntry;
     return entry.string
 }
