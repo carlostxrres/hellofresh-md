@@ -198,18 +198,18 @@ function observeReadiness() {
 function look(exit = () => {
 }) {
   let foundSomething = false;
-  const updated = selectorsStatus.value.map((status2) => {
-    if (status2.found) {
-      return status2;
+  const updated = selectorsStatus.value.map((selectorStatus) => {
+    if (selectorStatus.found) {
+      return selectorStatus;
     }
-    const selectorString = getSelector(status2.name);
+    const selectorString = getSelector(selectorStatus.name);
     const didFind = document.querySelector(selectorString);
     if (!didFind) {
-      return status2;
+      return selectorStatus;
     }
     foundSomething = true;
     return {
-      ...status2,
+      ...selectorStatus,
       found: true
     };
   });
@@ -589,7 +589,7 @@ function Loading() {
 }
 
 function Error$1() {
-  return u$2("div", { children: [u$2("div", { children: "Error" }), u$2("div", { children: status.value.message || "Error occurred" })] });
+  return u$2(S$1, { children: [u$2("div", { children: "Error" }), u$2("div", { children: status.value.message || "Error occurred" })] });
 }
 
 function Ready() {
