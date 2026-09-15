@@ -9,7 +9,7 @@ GM_addStyle(css);
 export default function () {
     // To do: make it nicer
     return (
-        <div class="hellofresh-md-loading">
+        <>
             <div>Loading...</div>
             {selectorsStatus.value.length > 0 &&
                 <>
@@ -28,6 +28,6 @@ export default function () {
                     </Button>
                 </>
             }
-        </div>
+        </>
     );
 }
